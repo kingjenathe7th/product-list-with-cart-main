@@ -30,6 +30,12 @@ const initApp = () => {
             }, {});
             console.log(productsData);
             addDataToHTML();
+
+            if (localStorage.getItem('cart')) {
+                carts = JSON.parse(localStorage.getItem('cart'));
+                addToCartHtml();
+                reflectCartState();
+            };
         })
         .catch(error => console.error('Error fetching data:', error));
 };
@@ -139,6 +145,11 @@ const addToCart = (product) => {
     }
 
     addToCartHtml();
+    addToMemory();
+};
+
+const addToMemory = () => {
+    localStorage.setItem('cart', JSON.stringify(carts));
 };
 
 
@@ -320,6 +331,7 @@ function toggleAddToCArtButtons() {
     const cartPlusMinus = document.querySelectorAll('.cart-plus-minus');
     addBtns.forEach((btn, index) => {
         btn.addEventListener('click', (event) => {
+            event.preventDefault();
             event.target.classList.toggle('active');
             if (cartPlusMinus[index]) {
                 cartPlusMinus[index].classList.add('active');
@@ -341,6 +353,17 @@ const updateCartTotal = () => {
 const checkCartState = () => {
     fullCart.style.display = carts.length > 0 ? 'block' : 'none';
     emptyCart.style.display = carts.length === 0 ? 'block' : 'none';
+};
+
+const reflectCartState = () => {
+    carts.forEach(cartItem => {
+        const productElement = document.querySelector(`.full-grid[data-id="${cartItem.product.id}"]`);
+        if (productElement) {
+            toggleButtonVisibility(productElement, true); // Show quantity controls
+            const itemQuantityElement = productElement.querySelector('.item-quantity');
+            itemQuantityElement.textContent = cartItem.quantity; // Set the correct quantity
+        };
+    });
 };
 
 
