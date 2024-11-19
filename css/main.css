@@ -500,10 +500,6 @@ strong {
     pointer-events: none;
 }
 
-/* .modal-container .show {
-    opacity: 1;
-    pointer-events: auto;
-} */
 
 .modal-hidden {
     background-color: white;
@@ -565,9 +561,10 @@ strong {
 .quantity-wrappers {
     display: flex;
     flex-flow: row nowrap;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     align-items: center;
     width: 82%;
+    gap: 20px;
 }
 
 .total-price {
