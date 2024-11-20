@@ -357,6 +357,17 @@ const checkCartState = () => {
     emptyCart.style.display = carts.length === 0 ? 'block' : 'none';
 };
 
+const reflectCartState = () => {
+    carts.forEach(cartItem => {
+        const productElement = document.querySelector(`.full-grid[data-id="${cartItem.product.id}"]`);
+        if (productElement) {
+            toggleButtonVisibility(productElement, true); // Show quantity controls
+            const itemQuantityElement = productElement.querySelector('.item-quantity');
+            itemQuantityElement.textContent = cartItem.quantity; // Set the correct quantity
+        };
+    });
+};
+
 
 
 const reflectCartState = () => {
