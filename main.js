@@ -111,7 +111,6 @@ const addDataToHTML = () => {
 
 
 
-
 const updateQuantity = (product, change) => {
     const cartItem = carts.find(item => item.product.id === product.id);
     if (cartItem) {
@@ -190,6 +189,7 @@ const addToCartHtml = () => {
     CartHeaderQuantity.textContent = `(${totalCartHeaderQuantity})`;
     updateCartTotal();
     checkCartState();
+    addToMemory();
 };
 
 
@@ -202,6 +202,7 @@ const removeItemsFromCart = (productId) => {
     if (productElement) {
         toggleButtonVisibility(productElement, false); // Reset button state for this product
     }
+    addToMemory();
 };
 
 
@@ -295,7 +296,7 @@ function startNewOrder() {
     modalContainer.style.opacity = 0;
     modalContainer.style.pointerEvents = 'none';
 
-
+    addToMemory();
 }
 
 
@@ -316,6 +317,7 @@ const toggleButtonVisibility = (productElement, inCart) => {
         itemQuantity.textContent = 1;            // Reset item quantity to 1
     }
     toggleAddToCArtButtons();
+    addToMemory();
 };
 
 
@@ -354,6 +356,8 @@ const checkCartState = () => {
     fullCart.style.display = carts.length > 0 ? 'block' : 'none';
     emptyCart.style.display = carts.length === 0 ? 'block' : 'none';
 };
+
+
 
 const reflectCartState = () => {
     carts.forEach(cartItem => {
